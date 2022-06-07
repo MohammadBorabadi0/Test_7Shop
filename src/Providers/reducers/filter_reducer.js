@@ -1,5 +1,5 @@
 import React from 'react';
-import { CLEAR_FILTERS, FILTER_PRODUCTS, LOAD_PRODUCTS, ADD_TO_FAVORITES, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT } from '../../actions';
+import { CLEAR_FILTERS, FILTER_PRODUCTS, LOAD_PRODUCTS, ADD_TO_FAVORITES, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT, REMOVE_FROM_FAVORITES } from '../../actions';
 
 const filter_reducer = (state, action) => {
     switch (action.type) {
@@ -12,8 +12,14 @@ const filter_reducer = (state, action) => {
         }
         case FILTER_PRODUCTS: {
             const { all_products, filters } = state;
-            const { gender, brand, category, size } = filters;
+            const { search, gender, brand, category, size } = filters;
             let tempProducts = [...all_products];
+
+            // Search 
+            if (search) {
+                tempProducts = tempProducts.filter(i => i.name.toLowerCase()
+                    .includes(search.toLowerCase()))
+            }
 
             // Gender 
             if (gender) {
@@ -22,7 +28,7 @@ const filter_reducer = (state, action) => {
             }
 
             // Brand 
-            if (brand) {
+            if (brand !== 'all') {
                 tempProducts = tempProducts.filter(i => i.brand.toLowerCase()
                     .includes(brand.toLowerCase()));
             }
@@ -65,23 +71,23 @@ const filter_reducer = (state, action) => {
                 ...state,
                 filters: {
                     gender: '',
-                    brand: ''
+                    brand: '',
+                    category: '',
+                    size: '',
+                    search: '',
                 },
                 sort: 'lowest'
             }
         }
         case ADD_TO_FAVORITES: {
             const updatedFavoritesProducts = [...state.favorites_products];
-            const findItem = updatedFavoritesProducts.find(i => i.id === action.payload.id);
-
-            if (findItem === undefined) {
-                updatedFavoritesProducts.push({ ...action.payload });
-                return { ...state, favorites_products: updatedFavoritesProducts };
-            }
-            else {
-                const filtered_favorites_products = updatedFavoritesProducts.filter(i => i.id !== action.payload.id);
-                return { ...state, favorites_products: filtered_favorites_products };
-            }
+            updatedFavoritesProducts.push({ ...action.payload });
+            return { ...state, favorites_products: updatedFavoritesProducts };
+        }
+        case REMOVE_FROM_FAVORITES: {
+            const updatedFavoritesProducts = [...state.favorites_products];
+            const filtered_favorites_products = updatedFavoritesProducts.filter(i => i.id !== action.payload.id);
+            return { ...state, favorites_products: filtered_favorites_products };
         }
         default: {
             return state;

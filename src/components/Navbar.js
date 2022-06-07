@@ -16,7 +16,7 @@ const NavList = [
     { id: 0, icon: 'fa-solid fa-house', link: '/' },
     { id: 1, icon: 'fa-solid fa-heart', link: '/favorites' },
     { id: 2, icon: 'fa-solid fa-cart-shopping', link: '/cart' },
-    { id: 3, icon: 'fa-solid fa-user', link: '/login' }
+    { id: 3, icon: 'fa-solid fa-user', link: '/profile' }
 ]
 
 const Navbar = () => {
@@ -39,7 +39,7 @@ const Navbar = () => {
                     <BiCart size='25px' className='cursor-pointer' />
                 </div>
             </header>
-            {activeSearchBox && <Search />}
+            <div className='sm:hidden'>{activeSearchBox && <Search />}</div>
             <nav className='sm:hidden fixed bottom-0 left-0 right-0 w-full z-10 bg-white shadow-xl rounded-t-3xl px-3'>
                 <ul className='flex items-center justify-between px-12 py-4 text-lg'>
                     {NavList.map((item, index) => (
@@ -52,27 +52,32 @@ const Navbar = () => {
                 </ul>
             </nav>
             {/* 640px to up  */}
-            <header className='hidden sm:flex items-center justify-between bg-primary sticky top-0 border-b px-3 py-1.5 mb-5'>
+            <header className='hidden sm:flex items-center justify-between bg-primary sticky top-0 border-b px-3 py-1.5 mb-5 z-10'>
                 {/* Logo  */}
-                <h2 className='text-2xl font-semibold cursor-pointer'><span className='text-purple-900 border-b-2 my-1 inline-block border-purple-900'>7</span>Shop</h2>
+                <Link to='/'>
+                    <h2 className='text-2xl font-semibold cursor-pointer'><span className='text-orange-500 border-b-2 my-1 inline-block border-orange-500'>7</span>Shop</h2>
+                </Link>
                 <ul className='flex items-center gap-4'>
                     <li>
-                        <Link to='/'>Home</Link>
+                        <Link to='/' className='hover:text-orange-500 transition-colors duration-100'>Home</Link>
                     </li>
                     <li>
-                        <Link to='/favorites'>Favorites</Link>
+                        <Link to='/favorites' className='hover:text-orange-500 transition-colors duration-100'>Favorites</Link>
                     </li>
                     <li>
-                        <Link to='/aboutus'>About Us</Link>
+                        <Link to='/aboutus' className='hover:text-orange-500 transition-colors duration-100'>About Us</Link>
                     </li>
-                    {myUser ? <button onClick={() =>
+                    {myUser ? <button className='hover:text-orange-500 transition-colors duration-100' onClick={() =>
                         logout({ returnTo: window.location.origin })}>Logout</button> :
-                        <button onClick={loginWithRedirect}>Login</button>}
+                        <button className='hover:text-orange-500 transition-colors duration-100' onClick={loginWithRedirect}>Login</button>}
                 </ul>
-                <div>
+                <div className='flex items-center gap-4'>
+                    {activeSearchBox ? <IoClose size='25px' className='cursor-pointer' onClick={() => setActiveSearchBox(!activeSearchBox)} />
+                        : <BiSearch size='25px' className='cursor-pointer' onClick={() => setActiveSearchBox(!activeSearchBox)} />}
                     <BiCart size='25px' />
                 </div>
             </header>
+            <div className='hidden sm:flex'>{activeSearchBox && <Search />}</div>
         </>
     );
 };

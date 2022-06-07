@@ -20,7 +20,7 @@ const AllProducts = () => {
     return (
         <Layout>
             <div className='flex justify-between items-center mb-4 px-3 xl:p-0'>
-                <h4 className='text-xl'>{filtered_products.length} Products Found</h4>
+                <h4 className='text-sm lg:text-xl text-slate-400'>{filtered_products.length} Products Found</h4>
                 <div className='hidden lg:flex items-center gap-8'>
                     <button className='flex items-center gap-2' onClick={() => setShowFilters(!showFilters)}>{showFilters ? 'Hide Filters' : 'Show Filters'} <BiSliderAlt /></button>
                     <Sort sort={sort} updateSort={updateSort} />

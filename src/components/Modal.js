@@ -14,7 +14,7 @@ const Modal = ({ showFilterMobile, setShowFilterMobile }) => {
     const [showCategories, setShowCategories] = useState(false);
     const [showSizes, setShowSizes] = useState(false);
 
-    const { sort, filters, updateFilters, all_products, updateSort, dispatch } = useFilter();
+    const { sort, filters, all_products, dispatch } = useFilter();
 
     // GetUniqueValues 
     const genderList = getUniqueValue(all_products, 'gender');
@@ -37,11 +37,14 @@ const Modal = ({ showFilterMobile, setShowFilterMobile }) => {
 
     return (
         <section className={`flex sm:hidden flex-col gap-8 bg-white z-20 fixed inset-0 top-0 rounded-t-2xl px-4 py-6 animate-wiggle overflow-y-auto`}>
-            <div className='flex justify-between text-3xl'>
-                <h2>Filters</h2>
-                <button onClick={() => setShowFilterMobile(false)}>
-                    <MdClose />
-                </button>
+            <div className='flex justify-between items-center'>
+                <h2>Filter By</h2>
+                <div className='flex items-center gap-6'>
+                    <button className='text-blue-600 font-semibold hover:underline'>Clear All</button>
+                    <button onClick={() => setShowFilterMobile(false)}>
+                        <MdClose size='30px' />
+                    </button>
+                </div>
             </div>
             {/* Sort  */}
             <section className='flex flex-col gap-4 border-b pb-4'>

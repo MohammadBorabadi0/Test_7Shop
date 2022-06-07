@@ -11,7 +11,8 @@ const initialState = {
         gender: '',
         brand: '',
         category: '',
-        size: ''
+        size: '',
+        search: '',
     },
     sort: 'lowest'
 }
@@ -35,14 +36,18 @@ const FilterProvider = ({ children }) => {
         let name = e.target.name;
         let value = e.target.value;
 
-        // Brand 
         if (name === 'brand') {
-            let currentTag = e.target.tagName.toLowerCase();
-            if (currentTag === 'div') {
-                value = e.target.childNodes[1].textContent;
-            }
-            value = e.target.parentNode.childNodes[1].textContent;
+            value = e.target.value;
         }
+
+        // Brand 
+        // if (name === 'brand') {
+        //     let currentTag = e.target.tagName.toLowerCase();
+        //     if (currentTag === 'div') {
+        //         value = e.target.childNodes[1].textContent;
+        //     }
+        //     value = e.target.parentNode.childNodes[1].textContent;
+        // }
 
         // Size 
         if (name === 'size') {
