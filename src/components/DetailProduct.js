@@ -26,21 +26,6 @@ const DetailProduct = () => {
 
     const isExist = favorites_products.find(i => i.id === product.id);
 
-
-    const addToFavoritesHandler = (e) => {
-        e.stopPropagation();
-        toast.success("Added to favorites");
-        setIsFavorite(!isFavorite);
-        dispatch({ type: ADD_TO_FAVORITES, payload: product });
-    }
-
-    const removeFavoritesHandler = (e) => {
-        e.stopPropagation();
-        toast.error("Remove from favorites");
-        setIsFavorite(!isFavorite);
-        dispatch({ type: REMOVE_FROM_FAVORITES, payload: product });
-    }
-
     const favoriteHandler = () => {
         if (!isFavorite) {
             toast.success("Added to favorites");
