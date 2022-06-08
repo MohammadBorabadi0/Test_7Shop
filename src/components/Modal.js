@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { FiChevronDown } from 'react-icons/fi';
 
 import { MdClose } from 'react-icons/md';
-import { UPDATE_SORT, UPDATE_FILTERS } from '../actions';
+import { UPDATE_SORT, UPDATE_FILTERS, CLEAR_FILTERS } from '../actions';
 import { useFilter } from '../Providers/context/filter_context';
 import { getUniqueValue } from '../utils/helpers';
 
@@ -35,12 +35,17 @@ const Modal = ({ showFilterMobile, setShowFilterMobile }) => {
         dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
     }
 
+    const clearAllFilters = () => {
+        setShowFilterMobile(false);
+        dispatch({ type: CLEAR_FILTERS });
+    }
+
     return (
         <section className={`flex sm:hidden flex-col gap-8 bg-white z-20 fixed inset-0 top-0 rounded-t-2xl px-4 py-6 animate-wiggle overflow-y-auto`}>
             <div className='flex justify-between items-center'>
                 <h2>Filter By</h2>
                 <div className='flex items-center gap-6'>
-                    <button className='text-blue-600 font-semibold hover:underline'>Clear All</button>
+                    <button className='text-blue-600 font-semibold hover:underline' onClick={clearAllFilters}>Clear All</button>
                     <button onClick={() => setShowFilterMobile(false)}>
                         <MdClose size='30px' />
                     </button>

@@ -5,10 +5,12 @@ import App from './App';
 import 'tw-elements';
 import { BrowserRouter } from 'react-router-dom';
 
+// Context 
 import { Auth0Provider } from "@auth0/auth0-react";
 import ProductsProvider from './Providers/context/products_context';
 import FilterProvider from './Providers/context/filter_context';
 import UserProvider from './Providers/context/user_context';
+import CartProvider from './Providers/context/cart_context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,9 +24,11 @@ root.render(
     <UserProvider>
       <ProductsProvider>
         <FilterProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <CartProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </CartProvider>
         </FilterProvider>
       </ProductsProvider>
     </UserProvider>
