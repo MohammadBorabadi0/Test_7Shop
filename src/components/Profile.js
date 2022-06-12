@@ -6,8 +6,7 @@ import { useUserContext } from '../Providers/context/user_context';
 
 
 const Profile = () => {
-    const { myUser } = useUserContext();
-
+    const { myUser, loginWithRedirect } = useUserContext();
 
     if (myUser)
         return (
@@ -24,6 +23,17 @@ const Profile = () => {
                 </section>
             </Layout>
         );
+
+    else {
+        return (
+            <Layout>
+                <div className='flex flex-col items-center gap-4 pt-6'>
+                    <h2 className='text-lg font-medium'>You are not logged in yet</h2>
+                    <button onClick={loginWithRedirect} className='font-medium bg-orange-500 text-white px-6 py-1 w-fit rounded-md'>Login</button>
+                </div>
+            </Layout>
+        )
+    }
 };
 
 export default Profile;

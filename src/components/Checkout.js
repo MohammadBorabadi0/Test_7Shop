@@ -71,7 +71,7 @@ const Checkout = () => {
     }
 
     return (
-        <section className='flex'>
+        <section className='flex flex-col'>
             <Layout>
                 <header className='px-3'>
                     <h2 className='text-xl font-semibold'>Checkout</h2>
