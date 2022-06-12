@@ -89,10 +89,10 @@ const MobileCart = () => {
                     <div>
                         <h2 className='font-semibold text-lg'>Order Summary</h2>
                     </div>
-                    <div className='flex items-center border rounded-md pl-2 w-full sm:w-fit lg:w-full'>
+                    <div className='flex items-center justify-between border rounded-md'>
                         <input type='text' placeholder='Enter your promo code'
-                            className='flex-1 focus:outline-none font-medium' />
-                        <button className='bg-blue-600 border border-blue-600 text-white cursor-pointer rounded-md px-2 py-1.5'>Apply</button>
+                            className='pl-2 py-1 focus:outline-none font-medium text-sm sm:text-base' />
+                        <button className='bg-blue-600 border border-blue-600 text-white cursor-pointer rounded-md px-1 text-sm sm:text-base py-1.5'>Apply</button>
                     </div>
                     <div className='flex justify-between items-center font-medium text-lg'>
                         <p>SubTotal</p>

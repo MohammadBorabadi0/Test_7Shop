@@ -40,7 +40,7 @@ const Cart = () => {
     }
 
     return (
-        <section className='hidden sm:flex'>
+        <section className='hidden sm:flex sm:flex-col'>
             <Layout>
                 <header className='px-3'>
                     <h2 className='text-xl font-semibold'>My Cart</h2>

@@ -62,6 +62,9 @@ const Checkout = () => {
     if (!cart.length) {
         return (
             <Layout>
+                <header>
+                    <h2 className='text-xl font-semibold px-3 xl:px-0'>Checkout</h2>
+                </header>
                 <div className='flex flex-col items-center gap-4 py-20'>
                     <h2 className='text-center text-3xl font-semibold text-gray-700'>Your cart is empty</h2>
                     <button onClick={() => navigate('/')} className='bg-orange-500 text-white text-lg px-4 py-1 rounded-md'>Fill it</button>
@@ -73,42 +76,42 @@ const Checkout = () => {
     return (
         <section className='flex flex-col'>
             <Layout>
-                <header className='px-3'>
+                <header>
                     <h2 className='text-xl font-semibold'>Checkout</h2>
                 </header>
-                <section className='flex flex-col-reverse lg:flex-row gap-8 lg:gap-4 px-3 pt-6'>
+                <section className='flex flex-col-reverse lg:flex-row gap-8 lg:gap-4 pt-6'>
                     <div className='flex-[3_3_0%] bg-white shadow-md rounded-lg h-fit py-6 px-5'>
                         <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
                             <section className='flex flex-col gap-4'>
-                                <h2 className='text-2xl font-semibold'>Shopping Address</h2>
+                                <h2 className='text-lg sm:text-2xl font-semibold'>Shopping Address</h2>
                                 <div className='flex flex-col sm:flex-row gap-3'>
                                     <div className='flex flex-col gap-1 flex-1 h-fit'>
-                                        <input type="text" name='firstName' id='firstName' value={values.firstName} onChange={handleChange} onBlur={handleBlur} placeholder='First Name' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-lg ${errors.firstName && touched.firstName && 'border-2 border-red-600 focus:border-red-600'}`} />
+                                        <input type="text" name='firstName' id='firstName' value={values.firstName} onChange={handleChange} onBlur={handleBlur} placeholder='First Name' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-base sm:text-lg ${errors.firstName && touched.firstName && 'border-2 border-red-600 focus:border-red-600'}`} />
                                         {errors.firstName && touched.firstName && <span className='flex items-center gap-1 text-red-600 font-medium'>
                                             <AiOutlineExclamationCircle />
                                             {errors.firstName}</span>}
                                     </div>
                                     <div className='flex flex-col gap-1 flex-1 h-fit'>
-                                        <input type="text" name='lastName' id='lastName' value={values.lastName} onChange={handleChange} onBlur={handleBlur} placeholder='Last Name' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-lg ${errors.lastName && touched.lastName && 'border-2 border-red-600 focus:border-red-600'}`} />
+                                        <input type="text" name='lastName' id='lastName' value={values.lastName} onChange={handleChange} onBlur={handleBlur} placeholder='Last Name' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-base sm:text-lg ${errors.lastName && touched.lastName && 'border-2 border-red-600 focus:border-red-600'}`} />
                                         {errors.lastName && touched.lastName && <span className='flex items-center gap-1 text-red-600 font-medium'>
                                             <AiOutlineExclamationCircle />
                                             {errors.lastName}</span>}
                                     </div>
                                 </div>
-                                <div className='flex'>
-                                    <input type='text' name='address' id='address' value={values.address} onChange={handleChange} onBlur={handleBlur} placeholder='Enter Address' className='flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-lg' />
+                                <div className='flex flex-col gap-1 flex-1 h-fit'>
+                                    <input type='text' name='address' id='address' value={values.address} onChange={handleChange} onBlur={handleBlur} placeholder='Enter Address' className='flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-base sm:text-lg' />
                                 </div>
                                 <div className='flex flex-col gap-1 flex-1 h-fit'>
-                                    <input type="email" name='email' id='email' value={values.email} onChange={handleChange} onBlur={handleBlur} placeholder='Email' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-lg ${errors.email && touched.email && 'border-2 border-red-600 focus:border-red-600'}`} />
+                                    <input type="email" name='email' id='email' value={values.email} onChange={handleChange} onBlur={handleBlur} placeholder='Email' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-base sm:text-lg ${errors.email && touched.email && 'border-2 border-red-600 focus:border-red-600'}`} />
                                     {errors.email && touched.email && <span className='flex items-center gap-1 text-red-600 font-medium'>
                                         <AiOutlineExclamationCircle />
                                         {errors.email}</span>}
                                 </div>
                             </section>
                             <section className='flex flex-col gap-4'>
-                                <h2 className='text-2xl font-semibold'>Contact Information</h2>
+                                <h2 className='text-lg sm:text-2xl font-semibold'>Contact Information</h2>
                                 <div className='flex flex-col gap-1 flex-1 h-fit'>
-                                    <input type="number" name='phoneNumber' id='phoneNumber' value={values.phoneNumber} onChange={handleChange} onBlur={handleBlur} placeholder='Phone Number' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-lg ${errors.phoneNumber && touched.phoneNumber && 'border-2 border-red-600 focus:border-red-600'}`} />
+                                    <input type="number" name='phoneNumber' id='phoneNumber' value={values.phoneNumber} onChange={handleChange} onBlur={handleBlur} placeholder='Phone Number' className={`flex-1 px-3 py-1.5 border focus:outline-none focus:border-2 focus:border-orange-500 rounded-md font-medium text-base sm:text-lg ${errors.phoneNumber && touched.phoneNumber && 'border-2 border-red-600 focus:border-red-600'}`} />
                                     {errors.phoneNumber && touched.phoneNumber && <span className='flex items-center gap-1 text-red-600 font-medium'>
                                         <AiOutlineExclamationCircle />
                                         {errors.phoneNumber}</span>}
