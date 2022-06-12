@@ -33,7 +33,7 @@ const HamburgerMenu = ({ activeHamburgerMenu, setActiveHamburgerMenu }) => {
                 {
                     myUser ? <button className='w-full block text-left text-lg font-medium hover:text-orange-500 transition-colors duration-100' onClick={() =>
                         logout({ returnTo: window.location.origin })}>Logout</button> :
-                        <button className='w-full block text-lg font-medium hover:text-orange-500 transition-colors duration-100' onClick={loginWithRedirect}>Login</button>
+                        <button className='w-full block text-left text-lg font-medium hover:text-orange-500 transition-colors duration-100' onClick={loginWithRedirect}>Login</button>
                 }
                 {
                     myUser &&
