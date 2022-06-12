@@ -17,12 +17,9 @@ const FavoriteItem = ({ item }) => {
 
     return (
         <div className='shadow-md hover:shadow-xl hover:cursor-pointer rounded-md'>
-            <div className='flex justify-between items-center px-4'>
+            <div className='flex justify-end items-center px-4'>
                 <span onClick={() => removeFromFavoritesHandler(item)}>
                     <FaHeart className='text-red-600' size='24px' onClick={removeFromFavoritesHandler} />
-                </span>
-                <span className='text-orange-600'>
-                    <BiPlus size='28px' />
                 </span>
             </div>
             <div className='flex justify-center'>

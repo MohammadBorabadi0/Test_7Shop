@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
 // Icons 
-import { BiHeart, BiPlus } from 'react-icons/bi';
+import { BiHeart } from 'react-icons/bi';
 import { FaHeart } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from '../actions';
 import { useFilter } from '../Providers/context/filter_context';
 import { toast } from 'react-toastify';
-import { shorten } from '../utils/helpers';
 
 const Product = ({ item, index }) => {
     const [isFavorite, setIsFavorite] = useState(false);
@@ -34,7 +33,7 @@ const Product = ({ item, index }) => {
     return (
         <section
             onClick={() => navigate(`/product/${item.id}`)}
-            className='shadow-md hover:shadow-xl cursor-pointer rounded-3xl py-8 bg-white'>
+            className='shadow-md hover:shadow-xl cursor-pointer rounded-md py-8 bg-white'>
             <div className='flex justify-end items-center px-6'>
                     {!isExist && !isFavorite && <button onClick={(e) => addToFavoritesHandler(e)}>
                         <BiHeart size='28px' />

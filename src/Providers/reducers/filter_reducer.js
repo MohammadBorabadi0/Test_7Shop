@@ -1,5 +1,11 @@
 import React from 'react';
-import { CLEAR_FILTERS, FILTER_PRODUCTS, LOAD_PRODUCTS, ADD_TO_FAVORITES, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT, REMOVE_FROM_FAVORITES } from '../../actions';
+
+// Actions 
+import { CLEAR_FILTERS, FILTER_PRODUCTS, LOAD_PRODUCTS, ADD_TO_FAVORITES, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT, REMOVE_FROM_FAVORITES, ADD_APPLIED_FILTERS, REMOVE_APPLIED_FILTERS, CLEAR_SEARCH_BOX } from '../../actions';
+
+// Helper 
+import { allFilters } from '../../utils/helpers';
+
 
 const filter_reducer = (state, action) => {
     switch (action.type) {
@@ -15,10 +21,11 @@ const filter_reducer = (state, action) => {
             const { search, gender, brand, category, size } = filters;
             let tempProducts = [...all_products];
 
+
             // Search 
             if (search) {
                 tempProducts = tempProducts.filter(i => i.name.toLowerCase()
-                    .includes(search.toLowerCase()))
+                    .includes(search.toLowerCase()));
             }
 
             // Gender 
@@ -69,6 +76,7 @@ const filter_reducer = (state, action) => {
         case CLEAR_FILTERS: {
             return {
                 ...state,
+                appliedFilters: [],
                 filters: {
                     gender: '',
                     brand: '',
@@ -79,6 +87,9 @@ const filter_reducer = (state, action) => {
                 sort: 'lowest'
             }
         }
+        case CLEAR_SEARCH_BOX: {
+            return { ...state, filters: { ...state.filters, search: '' } };
+        }
         case ADD_TO_FAVORITES: {
             const updatedFavoritesProducts = [...state.favorites_products];
             updatedFavoritesProducts.push({ ...action.payload });
@@ -88,6 +99,20 @@ const filter_reducer = (state, action) => {
             const updatedFavoritesProducts = [...state.favorites_products];
             const filtered_favorites_products = updatedFavoritesProducts.filter(i => i.id !== action.payload.id);
             return { ...state, favorites_products: filtered_favorites_products };
+        }
+        case ADD_APPLIED_FILTERS: {
+            const updatedAppliedFilters = [...state.appliedFilters];
+            const findItem = updatedAppliedFilters.find(i => i.name.toLowerCase() === action.payload.name.toLowerCase());
+            if (!findItem && action.payload.name !== 'sort') {
+                updatedAppliedFilters.push({ ...action.payload });
+            }
+            return { ...state, appliedFilters: updatedAppliedFilters }
+        }
+        case REMOVE_APPLIED_FILTERS: {
+            const { name } = action.payload;
+            const updatedAppliedFilters = [...state.appliedFilters];
+            const filteredApplied = updatedAppliedFilters.filter(i => i.name.toLowerCase() !== name.toLowerCase());
+            return { ...state, appliedFilters: filteredApplied, filters: { ...state.filters, [name]: '' } };
         }
         default: {
             return state;

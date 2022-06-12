@@ -7,3 +7,7 @@ export const getUniqueValue = (data, type) => {
 
     return [...new Set(unique)];
 }
+
+export const isExists = (products, item) => {
+    return products.find(i => i.id === item.id);
+}

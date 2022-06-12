@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import { FILTER_PRODUCTS, LOAD_PRODUCTS, SORT_PRODUCTS, UPDATE_FILTERS, UPDATE_SORT } from '../../actions';
+import { allFilters } from '../../utils/helpers';
 import filter_reducer from '../reducers/filter_reducer';
 import { useProducts } from './products_context';
 
@@ -7,6 +8,7 @@ const initialState = {
     filtered_products: [],
     all_products: [],
     favorites_products: [],
+    appliedFilters: [],
     filters: {
         gender: '',
         brand: '',
@@ -24,7 +26,7 @@ const FilterProvider = ({ children }) => {
     const { products } = useProducts();
 
     useEffect(() => {
-        dispatch({ type: LOAD_PRODUCTS, payload: products })
+        dispatch({ type: LOAD_PRODUCTS, payload: products });
     }, [products]);
 
     useEffect(() => {
@@ -35,19 +37,6 @@ const FilterProvider = ({ children }) => {
     const updateFilters = (e) => {
         let name = e.target.name;
         let value = e.target.value;
-
-        if (name === 'brand') {
-            value = e.target.value;
-        }
-
-        // Brand 
-        // if (name === 'brand') {
-        //     let currentTag = e.target.tagName.toLowerCase();
-        //     if (currentTag === 'div') {
-        //         value = e.target.childNodes[1].textContent;
-        //     }
-        //     value = e.target.parentNode.childNodes[1].textContent;
-        // }
 
         // Size 
         if (name === 'size') {

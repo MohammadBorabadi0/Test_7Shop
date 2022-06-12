@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 
 // Icons 
 import { FiChevronLeft } from 'react-icons/fi';
-import { BiCart, BiHeart } from 'react-icons/bi';
+import { BiCart } from 'react-icons/bi';
 import { FiChevronDown } from 'react-icons/fi';
-import { FaHeart } from 'react-icons/fa';
 
 import data from '../db.json';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -12,19 +11,23 @@ import LayoutDetail from '../Layout/LayoutDetail';
 import { useFilter } from '../Providers/context/filter_context';
 import { toast } from 'react-toastify';
 import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from '../actions';
+import DetailProductButtons from './DetailProductButtons';
+import { useCart } from '../Providers/context/cart_context';
 
 const DetailProduct = () => {
+    // useState 
     const [isFavorite, setIsFavorite] = useState(false);
-    const { dispatch, favorites_products } = useFilter();
-    const [active, setActive] = useState(0);
+    const [selectedSize, setSelectedSize] = useState(null);
     const [show, setShow] = useState(false);
+
+    const { dispatch } = useFilter();
+    const { numberOfAmounts } = useCart();
+
     let navigate = useNavigate();
     const params = useParams();
     const id = Number(params.id);
     const product = data.find(i => i.id === id);
-    const size = product.size;
-
-    const isExist = favorites_products.find(i => i.id === product.id);
+    const sizeList = product.size;
 
     const favoriteHandler = () => {
         if (!isFavorite) {
@@ -44,12 +47,13 @@ const DetailProduct = () => {
             <LayoutDetail>
                 <section className='flex flex-col lg:flex-row bg-gray-300 md:bg-white md:rounded-xl md:overflow-hidden md:max-w-7xl md:mx-auto'>
                     <div className='flex flex-col sm:flex-1 border-r'>
-                        <div className='flex sm:hidden justify-between items-center text-3xl text-slate-700 px-4 py-6'>
+                        <div className='flex sm:hidden justify-between items-center text-3xl text-slate-700 p-6'>
                             <span className='cursor-pointer' onClick={() => navigate('/')}>
                                 <FiChevronLeft />
                             </span>
-                            <span className='cursor-pointer' onClick={() => navigate('/cart')}>
-                                <BiCart />
+                            <span onClick={() => navigate('/cart')} className='block cursor-pointer relative'>
+                                <BiCart size='25px' />
+                                <span className='absolute top-[-10px] right-[-13px] bg-red-700 text-white px-1.5 rounded-md text-sm'>{numberOfAmounts === 0 ? null : numberOfAmounts}</span>
                             </span>
                         </div>
                         <div className='flex justify-center'>
@@ -67,11 +71,11 @@ const DetailProduct = () => {
                                 <span className='text-gray-400 font-medium'>Size Guide</span>
                             </div>
                             <div className='flex gap-2'>
-                                {size.map((item, index) => (
+                                {sizeList.map((item, index) => (
                                     <button
                                         key={index}
-                                        className={`px-2 py-1 bg-gray-100 shadow-lg rounded-md font-semibold text-lg ${active === index && 'bg-orange-500 text-white'}`}
-                                        onClick={() => setActive(index)}>{item}</button>
+                                        className={`px-2 py-1 bg-gray-100 shadow-lg rounded-md font-semibold text-lg ${selectedSize === item && 'bg-orange-600 text-white'}`}
+                                        onClick={() => setSelectedSize(item)}>{item}</button>
                                 ))}
                             </div>
                         </div>
@@ -83,26 +87,10 @@ const DetailProduct = () => {
                             </div>
                             <p className={`mt-4 max-h-0 overflow-hidden transition-all duration-1000 ease-out ${show && 'transition-all duration-1000 max-h-fit'}`}>{product.description}</p>
                         </div>
-                        <section className='flex flex-col sm:flex-row items-center gap-4'>
-                            <div className='flex items-center justify-center bg-orange-500 hover:bg-white hover:text-orange-500 border-2 border-orange-500 text-white transition-colors duration-200 gap-2 text-base md:text-lg px-3 py-1.5 font-bold cursor-pointer rounded-xl w-full sm:w-fit sm:px-6'>
-                                <BiCart size='22px' />
-                                <button className='font-medium'>Add To Cart</button>
-                            </div>
-                            <div className={`flex items-center justify-center text-white transition-colors duration-200 gap-2 text-base md:text-lg px-3 py-1.5 font-bold cursor-pointer rounded-xl w-full sm:w-fit ${isExist && isFavorite ? 'bg-red-600 hover:bg-white hover:text-red-600 border-2 border-red-600' : 'bg-yellow-500 hover:bg-white hover:text-yellow-500 border-2 border-yellow-500'}`}
-                                onClick={favoriteHandler}>
-                                {!isExist && !isFavorite && <button className='flex items-center gap-2 font-medium'>
-                                    <BiHeart size='25px' />
-                                    Add To Favorites
-                                </button>}
-                                {isExist && <button className='flex items-center gap-2 font-medium'>
-                                    <FaHeart size='25px' className='text-red-800' />
-                                    Remove From Favorites
-                                </button>}
-                            </div>
-                        </section>
+                        <DetailProductButtons selectedSize={selectedSize} isFavorite={isFavorite} product={product} favoriteHandler={favoriteHandler} />
                     </div>
-                </section>
-            </LayoutDetail>
+                </section >
+            </LayoutDetail >
         );
 };
 

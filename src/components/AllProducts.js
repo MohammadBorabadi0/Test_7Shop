@@ -19,7 +19,7 @@ const AllProducts = () => {
 
     return (
         <Layout>
-            <div className='flex justify-between items-center mb-4 px-3 xl:p-0'>
+            <div className='flex justify-between items-center mb-4'>
                 <h4 className='text-sm lg:text-xl text-slate-400'>{filtered_products.length} Products Found</h4>
                 <div className='hidden lg:flex items-center gap-8'>
                     <button className='flex items-center gap-2' onClick={() => setShowFilters(!showFilters)}>{showFilters ? 'Hide Filters' : 'Show Filters'} <BiSliderAlt /></button>
@@ -30,12 +30,12 @@ const AllProducts = () => {
                     <BiSliderAlt />
                 </div>
             </div>
-            {showFilterMobile && <Modal showFilterMobile={showFilterMobile} setShowFilterMobile={setShowFilterMobile} />}
+            {showFilterMobile ? <Modal showFilterMobile={showFilterMobile} setShowFilterMobile={setShowFilterMobile} /> : null}
             <FilterByBrand />
-            <main className='flex gap-8'>
+            <main className='flex gap-4'>
                 {showFilters && <Filter />}
                 <section className='flex-[5_5_0%]'>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${!showFilters && 'lg:grid-cols-4'} gap-x-2 gap-y-8 px-3 xl:p-0`}>
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${!showFilters && 'xl:grid-cols-4'} gap-x-2 gap-y-8 px-3 xl:p-0`}>
                         {filtered_products.map((item, index) => (
                             <Product key={item.id} item={item} index={index} />
                         ))}
