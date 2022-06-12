@@ -35,7 +35,7 @@ const AllProducts = () => {
             <main className='flex gap-4'>
                 {showFilters && <Filter />}
                 <section className='flex-[5_5_0%]'>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${!showFilters && 'xl:grid-cols-4'} gap-x-2 gap-y-8 px-3 xl:p-0`}>
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${!showFilters && 'xl:grid-cols-4'} gap-x-2 gap-y-8`}>
                         {filtered_products.map((item, index) => (
                             <Product key={item.id} item={item} index={index} />
                         ))}

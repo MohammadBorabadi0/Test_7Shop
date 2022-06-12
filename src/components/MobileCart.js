@@ -43,7 +43,7 @@ const MobileCart = () => {
                         <h3 className='text-lg font-medium'>Your shopping cart is empty !</h3>
                     </div>
                     <div className='flex flex-col items-center gap-4'>
-                        <h4>For add product to the cart, you can go to the page below</h4>
+                        <h4 className='text-center'>For add product to the cart, you can go to the page below</h4>
                         <Link to='/' className='px-4 py-1 bg-orange-500 text-white rounded-md text-lg'>Home</Link>
                     </div>
                 </section>

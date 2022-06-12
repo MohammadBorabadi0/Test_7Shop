@@ -63,7 +63,7 @@ const Checkout = () => {
         return (
             <Layout>
                 <div className='flex flex-col items-center gap-4 py-20'>
-                    <h2 className='text-3xl font-semibold text-gray-700'>Your cart is empty</h2>
+                    <h2 className='text-center text-3xl font-semibold text-gray-700'>Your cart is empty</h2>
                     <button onClick={() => navigate('/')} className='bg-orange-500 text-white text-lg px-4 py-1 rounded-md'>Fill it</button>
                 </div>
             </Layout>
